@@ -3,11 +3,11 @@
 {% block menu %}
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <a href="www.google.com" style="font-family: Arial, sans-serif; color: #0066CC; text-decoration: none;">Home</a>
+        <a href="{% url 'home' %}" style="font-family: Arial, sans-serif; color: #0066CC; text-decoration: none;">Home</a>
         | <a href="www.google.com" style="font-family: Arial, sans-serif; color: #0066CC; text-decoration: none;">Produtos</a>
         | <a href="{% url 'servicos' %}" style="font-family: Arial, sans-serif; color: #0066CC; text-decoration: none;">Serviços</a>
     </div>
-    <a href="www.google.com" style="font-family: Arial, sans-serif; color: #0066CC; text-align: left; text-decoration: none;">Login</a>
+    <a href="{% url 'login' %}" style="font-family: Arial, sans-serif; color: #0066CC; text-align: left; text-decoration: none;">Login</a>
 </div>
 {% endblock %}
 
