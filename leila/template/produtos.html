@@ -1,0 +1,71 @@
+{% extends 'menu.html' %}
+{% load static %}
+{% block title %}produto{% endblock %}
+{% block body %}
+<style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-family: Arial, sans-serif;
+      color: #333;
+      font-size: 32px;
+      text-align: center;}
+
+    h2 {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      font-style: italic;}
+
+    .produtos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .produto {
+      width: 300px;
+      border: 1px solid #ccc;
+      margin: 1rem;
+      padding: 1rem;
+    }
+
+    .produto h3 {
+      margin-top: 0;
+    }
+
+    .produto .preco {
+      font-weight: bold;
+      text-align: right;
+    }
+
+</style>
+
+<h1>Cabeleleila Leila</h1>
+<h2>Selecione seu produto com a Cabeleleila Leila</h2>
+<h2>Nossos melhores Produtos</h2>
+
+<div class="produtos">
+
+    <div class="produto">
+        <h3>Produto 1</h3>
+        <p>Descrição</p>
+        <p class="preco">R$ 350,00</p>
+    </div>
+
+    <div class="produto">
+        <h3>Produto 2</h3>
+        <p>Descrição</p>
+        <p class="preco">R$ 620,00</p>
+    </div>
+
+    <div class="produto">
+        <h3>Produto 3</h3>
+        <p>Descrição</p>
+        <p class="preco">R$ 125,00</p>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'agendaServico',
     'users',
     'servicos',
+    'produtos',
 ]
 
 MIDDLEWARE = [
