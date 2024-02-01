@@ -1,0 +1,92 @@
+.titulo_home{
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 32px;
+    text-align: center;
+}
+.video_youtube{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-family: Arial, sans-serif;
+  color: #333;
+  font-size: 32px;
+  text-align: center;
+}
+
+h2 {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-style: italic;
+}
+
+.cabecalho{
+    display: flex;
+    justify-content: space-between;
+}
+
+.botao_login{
+    font-family: Arial, sans-serif;
+    color: #0066CC;
+    text-align: left;
+    text-decoration: none;
+}
+
+.caixa_app {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+}
+
+.servico {
+      width: 300px;
+      border: 1px solid #ccc;
+      margin: 1rem;
+      padding: 1rem;
+}
+
+.servico h3 {
+      margin-top: 0;
+}
+
+.servico .preco {
+      font-weight: bold;
+      text-align: right;
+}
+
+.produto {
+      width: 300px;
+      border: 1px solid #ccc;
+      margin: 1rem;
+      padding: 1rem;
+}
+
+.produto h3 {
+      margin-top: 0;
+}
+
+.produto .preco {
+      font-weight: bold;
+      text-align: right;
+}
+
+
+
+.itens_top a{
+    font-family: Arial, sans-serif;
+    color: #0066CC;
+    text-decoration: none;
+}
+
+.paragrafo_rodape{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-style: italic
+}
