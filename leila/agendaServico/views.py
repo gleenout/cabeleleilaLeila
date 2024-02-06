@@ -7,3 +7,5 @@ def login(request):
   return render(request, 'login.html')
 def cadastro(request):
   return render(request, 'cadastro.html')
+def servicos(request):
+  return render(request,  'servicos.html')
