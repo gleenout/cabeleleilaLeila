@@ -9,3 +9,7 @@ def cadastro(request):
   return render(request, 'cadastro.html')
 def servicos(request):
   return render(request,  'servicos.html')
+def agendamento(request):
+    return render(request, 'agendas.html')
+def produtos(request):
+    return render(request, 'produtos.html')
