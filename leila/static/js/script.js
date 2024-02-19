@@ -31,6 +31,3 @@ switch (nome){
         break;
 }*/
 
-function mudarTexto(texto){
-    document.getElementById("campo_texto").InnerHTML = "TEXTO";
-}

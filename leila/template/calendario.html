@@ -1,18 +1,8 @@
-{% extends 'menu.html' %}
-{% load static %}
-{% block title %}Agendamento{% endblock %}
-{% block head %}
-<link rel="stylesheet" href="{% static 'js/calendario.css'%}">
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-{% endblock %}
-{% block body %}
-<h1>Cabeleleila Leila</h1>
-<h2>Marque seu atendimento aqui</h2>
+{% extends 'base.html' %}
+
+{% block content %}
 <div class="p-5">
-    <h2 class="mb-4">Calendario</h2>
+    <h2 class="mb-4">Full Calendar</h2>
     <div class="card">
         <div class="card-body p-0">
             <div id="calendar"></div>
@@ -29,7 +19,7 @@
                 <div class="event-body"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -83,7 +73,39 @@
     </div>
 </div>
 
-{% endblock %}
-{% block script %}
-    <script type="application/javascript" src="{% static 'js/calendario.js'%}"></script>
-{% endblock %}
+
+<div class="related-product">
+    <div class="container">
+        <h1 class="text-center mb-5" hidden>Bootstrap 4 Admin Panel</h1>
+        <ul class="row justify-content-center">
+            <li class="col-md-6 col-sm-12">
+                <a href="https://github.com/dropways/deskapp" target="_blank">
+                    <div class="related-box">
+                        <img src="https://dropways.github.io/feathericons/assets/themes/twitter/images/deskapp.png" alt="deskapp">
+                    </div>
+                    <h3>DeskApp Bootstrap 4 admin template</h3>
+                    <p>DeskApp Admin is a free to use Bootstrap 4 admin template. This template uses the default Bootstrap 4 styles along with a variety of powerful jQuery plugins and tools to create a powerful framework for creating admin panels or back-end dashboards.</p>
+                </a>
+                <div class="text-center">
+                    <a href="https://github.com/dropways/deskapp" target="_blank" class="btn btn-primary btn-lg download-btn"><i class="fa fa-github"></i> Download Now</a>
+                </div>
+            </li>
+            <li class="col-md-6 col-sm-12">
+                <a href="https://codepen.io/ankithingarajiya/pen/WNaQdOw" target="_blank">
+                    <div class="related-box related-box-iframe">
+                        <iframe height="300" style="width: 100%;" scrolling="no" title="Cross Fade Image Animation Using Bootstrap Carousel" src="https://codepen.io/ankithingarajiya/embed/WNaQdOw?default-tab=" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+                            See the Pen <a href="https://codepen.io/ankithingarajiya/pen/WNaQdOw">
+                            Cross Fade Image Animation Using Bootstrap Carousel</a> by Ankit Hingarajiya (<a href="https://codepen.io/ankithingarajiya">@ankithingarajiya</a>)
+                            on <a href="https://codepen.io">CodePen</a>.
+                        </iframe>
+                    </div>
+                    <h3>Cross Fade Image Animation Using Bootstrap Carousel</h3>
+                </a>
+                <div class="text-center">
+                    <a href="https://codepen.io/ankithingarajiya/pen/WNaQdOw" target="_blank" class="btn btn-primary btn-lg download-btn"><i class="fa fa-codepen"></i> View Pen</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}

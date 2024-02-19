@@ -9,3 +9,6 @@ def agendamento(request):
     return render(request, 'agendas.html')
 def produtos(request):
     return render(request, 'produtos.html')
+
+
+
