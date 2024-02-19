@@ -1,3 +1,26 @@
+.carousel {
+  height: 470px;
+}
+
+.carousel-inner {
+  height: 470px;
+}
+
+.carousel-item {
+    height: 100%;
+}
+
+.d-block {
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    filter: brightness(70%);
+}
+
+.carousel {
+  overflow: hidden;
+}
+
 .titulo_home{
     font-family: Arial, sans-serif;
     color: #333;

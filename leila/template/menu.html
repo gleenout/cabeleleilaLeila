@@ -37,7 +37,7 @@
         </li>
       </ul>
       <li class="d-flex">
-          <a class="btn btn-primary" href="{% url 'login'%}">Login</a>
+          <a class="btn btn-primary" href="{% url 'account_login' %}">Login</a>
         </li>
     </div>
   </div>
@@ -45,7 +45,9 @@
 {% endblock %}
 
 {% block footer %}
-<br><br>
-
-<p class="paragrafo_rodape">Leila cabeleileiros, o salão de cabeleireiro da Cabeleileila Leila.</p>
+  <footer class="container">
+    <hr class="mt-5 mb-4">
+      <p class="float-end"><a href="#">Ir para o topo</a></p>
+      <p class="text-muted">© 2024 Cabeleleila Leila · <a href="#">Privacidade</a> · <a href="#">Termos</a></p>
+  </footer>
 {% endblock %}
