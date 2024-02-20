@@ -35,6 +35,9 @@ python3 -m venv .venv
 pip install django
 ```
 ```
+pip install dj-static
+```
+```
 pip install django-allauth
 ```
 
