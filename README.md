@@ -29,16 +29,16 @@ python3 -m venv .venv
 .venv/Scripts/activate
 ```
 
-## Executando
+3. Instale o django e django-allauth
+
 ```
 pip install django
 ```
 ```
-pip install dj-static
-```
-```
 pip install django-allauth
 ```
+
+## Executando
 Com o ambiente configurado, execute as migrações:
 
 ```
