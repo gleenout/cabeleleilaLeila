@@ -23,17 +23,22 @@ git clone https://github.com/usuario/meu-projeto-django.git
 2. Crie um virtualenv
 
 ```
-python3 -m venv venv
+python3 -m venv .venv
 ```
 ```
-cd venv/Scripts
-```
-```
-./activate
+.venv/Scripts/activate
 ```
 
 ## Executando
-
+```
+pip install django
+```
+```
+pip install dj-static
+```
+```
+pip install django-allauth
+```
 Com o ambiente configurado, execute as migrações:
 
 ```
