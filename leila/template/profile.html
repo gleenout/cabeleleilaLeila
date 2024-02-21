@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load account %}
+
+{% block body %}
+
+    <h1>Perfil</h1>
+
+    <p>Usuário: {{ user.username }}</p>
+
+    <p>Nome: {{ user.first_name }} {{ user.last_name }}</p>
+
+    <p>Email: {{ user.email }}</p>
+
+    {% if user.socialaccount_set.all %}
+        {% for account in user.socialaccount_set.all %}
+            <p>{{ account.provider }} Id: {{ account.uid }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if user.profile %}
+        <!-- campos customizados do perfil -->
+        <p>Bio: {{ user.profile.bio }}</p>
+    {% endif %}
+
+    <p>
+        <li class="d-flex">
+            <a class="btn btn-primary" href="{% url 'account_email' %}">Atualizar E-mail</a>
+        </li>
+        <li class="d-flex">
+            <a class="btn btn-primary" href="{% url 'account_change_password' %}">Alterar Senha</a>
+        </li>
+        <li class="d-flex">
+            <a class="btn btn-primary" href="{% url 'account_logout' %}?next=/">Sair</a>
+        </li>
+    </p>
+
+{% endblock %}
