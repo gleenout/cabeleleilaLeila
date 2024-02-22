@@ -27,9 +27,16 @@
           </ul>
         </li>
       </ul>
-      <li class="d-flex">
-          <a class="btn btn-primary" href="{% url 'account_login' %}">Login</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="d-flex">
+                <a class="btn btn-primary" href="{% url 'account_logout' %}?next=/">Sair</a>
+            </li>
+        {% else %}
+            <li class="d-flex">
+                <a class="btn btn-primary" href="{% url 'account_login' %}">Login</a>
+            </li>
+        {% endif %}
+      
     </div>
   </div>
 </nav>
