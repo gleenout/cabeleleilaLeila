@@ -42,6 +42,10 @@ pip install django-allauth
 ```
 
 ## Executando
+```
+cd leila
+```
+
 Com o ambiente configurado, execute as migrações:
 
 ```
