@@ -7,7 +7,7 @@ def home(request):
 def servicos(request):
   return render(request,  'servicos.html')
 def agendamento(request):
-    return render(request, 'agendas.html')
+    return render(request, 'agendamento.html')
 def produtos(request):
     return render(request, 'produtos.html')
 @login_required

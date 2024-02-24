@@ -4,6 +4,7 @@
     {% trans "Signup" %}
 {% endblock head_title %}
 {% block content %}
+    <main class="form-signin w-100 m-auto">
     {% element h1 %}
         {% trans "Sign Up" %}
     {% endelement %}
@@ -31,4 +32,5 @@
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
+    </main>
 {% endblock content %}

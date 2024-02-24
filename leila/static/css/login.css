@@ -1,197 +1,25 @@
+html,
 body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+    height: 100%;
 }
 
-/* Estilo para o contêiner do menu */
-div.menu-container {
-    margin-top: 20px; /* Espaçamento superior */
-    font-family: Arial, sans-serif; /* Fonte do texto */
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
 }
 
-/* Estilo para o texto "Menu" */
-div.menu-container strong {
-    display: block; /* Exibir como bloco */
-    font-weight: bold; /* Negrito */
-    margin-bottom: 10px; /* Espaçamento inferior */
-    font-size: 1.2em; /* Tamanho da fonte */
-    color: #333; /* Cor do texto */
+.form-signin .form-floating:focus-within {
+    z-index: 2;
 }
 
-/* Estilo para a lista não ordenada */
-div.menu-container ul {
-    list-style: none; /* Remover marcadores de lista */
-    padding: 0; /* Remover preenchimento */
-    display: flex; /* Exibir itens lado a lado */
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
-/* Estilo para os itens da lista */
-div.menu-container li {
-    margin-bottom: 10px; /* Espaçamento inferior */
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
-
-/* Estilo para os links do menu */
-div.menu-container a {
-    color: #007bff; /* Cor do link azul */
-    text-decoration: none; /* Remover sublinhado */
-    transition: color 0.3s; /* Transição suave da cor */
-    font-size: 1em; /* Tamanho da fonte */
-    padding: 5px 10px; /* Preenchimento */
-    border-radius: 5px; /* Cantos arredondados */
-    background-color: #f0f0f0; /* Cor de fundo */
-    border: 1px solid #ddd; /* Borda cinza */
-    margin-right: 10px; /* Espaçamento à direita */
-}
-
-/* Estilo para os links do menu ao passar o mouse */
-div.menu-container a:hover {
-    color: #0056b3; /* Alterar cor do link ao passar o mouse */
-    background-color: #ddd; /* Alterar cor de fundo ao passar o mouse */
-}
-
-
-
-/* Estilo para links */
-a {
-    color: #007bff; /* Cor do link azul */
-    text-decoration: none; /* Remover sublinhado */
-    transition: color 0.3s; /* Transição suave da cor */
-}
-
-a:hover {
-    color: #0056b3; /* Alterar cor do link ao passar o mouse */
-}
-
-.aviso_login{
-    text-align: center;
-}
-
-/* Estilo geral para todos os formulários */
-form {
-    width: 300px;
-    margin: auto; /* Centralizar o formulário na página */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-label {
-      display: inline-block;
-      margin-bottom: 8px;
-}
-
-/* Estilo para o cabeçalho dos formulários */
-h1 {
-    color: #333;
-    text-align: center; /* Centralizar o texto */
-    margin-bottom: 20px; /* Espaçamento inferior */
-}
-
-/* Estilo para os campos de entrada de texto */
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-    width: 100%; /* Ocupar toda a largura disponível */
-    padding: 10px; /* Espaçamento interno */
-    margin-bottom: 20px; /* Espaçamento inferior */
-    border: 1px solid #ccc; /* Borda com cor cinza */
-    border-radius: 4px; /* Cantos arredondados */
-    box-sizing: border-box; /* Garantir que o preenchimento não altere a largura total */
-}
-
-/* Estilo para os botões */
-button,
-input[type="submit"] {
-    width: 100%; /* Ocupar toda a largura disponível */
-    padding: 10px; /* Espaçamento interno */
-    background-color: #007bff; /* Cor de fundo azul */
-    color: #fff; /* Cor do texto branco */
-    border: none; /* Remover borda */
-    border-radius: 4px; /* Cantos arredondados */
-    cursor: pointer; /* Cursor de apontar */
-    transition: background-color 0.3s; /* Transição suave da cor de fundo */
-}
-
-button:hover,
-input[type="submit"]:hover {
-    background-color: #0056b3; /* Alterar cor de fundo ao passar o mouse */
-}
-
-/* Estilo para mensagens de erro */
-.error-message {
-    color: #dc3545; /* Cor do texto vermelho */
-    margin-top: 10px; /* Espaçamento superior */
-}
-
-/* Estilo para mensagens de sucesso */
-.success-message {
-    color: #28a745; /* Cor do texto verde */
-    margin-top: 10px; /* Espaçamento superior */
-}
-
-
-
-
-
-/*body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-}
-
-h1 {
-     text-align: center;
-}
-
-form {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background: #fff;
-      width: 300px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 10px;
-}
-
-label {
-      display: block;
-      margin-bottom: 8px;
-}
-
-input {
-      padding: 10px;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-bottom: 12px;
-      box-sizing: border-box;
-}
-
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background: #0056b3;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}*/
