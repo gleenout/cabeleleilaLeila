@@ -13,7 +13,7 @@
         'Domingo',
         'Segunda',
         'Terça',
-        'Vandinha',
+        'Quarta',
         'Quinta',
         'Sexta',
         'Sábado'

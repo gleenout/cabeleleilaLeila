@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 {% block menu %}
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -21,9 +24,16 @@
                             </li>
                         </ul>
                         {% if user.is_authenticated %}
-                            <li class="d-flex">
-                                <a class="btn btn-primary" href="{% url 'account_logout' %}?next=/">Sair</a>
-                            </li>
+                            <div class="dropdown text-end">
+                                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                                </a>
+                                <ul class="dropdown-menu text-small" style="">
+                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'account_logout' %}?next=/">Sair</a></li>
+                                </ul>
+                            </div>
                         {% else %}
                             <li class="d-flex">
                                 <a class="btn btn-primary" href="{% url 'account_login' %}">Login</a>

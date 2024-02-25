@@ -1,17 +1,23 @@
 {% extends "account/base_entrance.html" %}
+{% load static %}
 {% load i18n %}
 {% load allauth account %}
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
+{% block navitem %}
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+    </li>
+{% endblock %}
 {% block content %}
-    <main class="form-signin w-100 m-auto">
+        <img class="mb-4" src="{% static 'assets/brand/bootstrap-logo.svg' %}" alt="" width="72" height="57">
     {% element h1 %}
         {% trans "Sign In" %}
     {% endelement %}
     <p>
-        {% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+        {% blocktrans %}Se você ainda não criou uma conta, por favor
+    <a href="{{ signup_url }}">cadasatre-se</a> primeiro.{% endblocktrans %}
     </p>
     {% url 'account_login' as login_url %}
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
@@ -20,7 +26,7 @@
             {% element fields form=form unlabeled=True %}
             {% endelement %}
             {% if redirect_field_value %}
-                <input type="hidden"
+                <input class="form-control" type="hidden"
                        name="{{ redirect_field_name }}"
                        value="{{ redirect_field_value }}" />
             {% endif %}
@@ -34,5 +40,5 @@
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
-    </main>
+
 {% endblock content %}

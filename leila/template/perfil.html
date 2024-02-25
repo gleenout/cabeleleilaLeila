@@ -75,8 +75,20 @@
                                     <h4>{{ user.first_name }} {{ user.last_name }}</h4>
                                     <p class="text-secondary mb-1">{{ user.username }}</p>
                                     <p class="text-muted font-size-sm">{{ user.email }}</p>
-                                    <button class="btn btn-primary">Teste</button>
-                                    <button class="btn btn-outline-primary" href="{% url 'account_logout' %}?next=/">Sair</button>
+                                    <div class="container text-center">
+                                        <div class="row">
+                                            <div class="col">
+                                                <li class="d-flex">
+                                                    <a class="btn btn-primary" href="{% url 'agendamento' %}">Agenda</a>
+                                                </li>
+                                            </div>
+                                            <div class="col">
+                                                <li class="d-flex">
+                                                    <a class="btn btn-primary" href="{% url 'account_logout' %}">Sair</a>
+                                                </li>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -130,11 +142,12 @@
                                 </div>
                             </div>
                             <hr>
+                            <!--
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                    <a class="btn btn-info " target="#">#Editar#</a>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -174,5 +187,4 @@
         </li>
     </p>
 -->
-    <a class="btn btn-primary" href="{% url 'account_logout' %}?next=/">Sair</a>
 {% endblock %}

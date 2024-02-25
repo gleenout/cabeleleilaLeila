@@ -12,7 +12,7 @@ def produtos(request):
     return render(request, 'produtos.html')
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    return render(request, 'perfil.html')
 
 
 

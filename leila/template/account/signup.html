@@ -3,8 +3,12 @@
 {% block head_title %}
     {% trans "Signup" %}
 {% endblock head_title %}
+{% block navitem %}
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+    </li>
+{% endblock %}
 {% block content %}
-    <main class="form-signin w-100 m-auto">
     {% element h1 %}
         {% trans "Sign Up" %}
     {% endelement %}
@@ -32,5 +36,4 @@
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
-    </main>
 {% endblock content %}
