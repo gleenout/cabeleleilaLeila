@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .forms import ClienteForm
-from .models import Produto, Funcionario, Cliente
+from .models import Produto, Funcionario, Cliente, Servico
 from django.utils import timezone
 
 def is_staff_check(user):
@@ -24,25 +24,8 @@ def produtos(request):
     produtos = Produto.objects.all()
     context = {'produtos': produtos}
     return render(request, 'produtos.html')
+
 def cadastro(request):
-    '''if request.user.is_authenticated:
-        return redirect('perfil')
-    if request.method == 'GET':
-        return render(request, 'auth/cadastro.html')
-    else:
-        username = request.POST['username']
-        email = request.POST['email']
-        senha = request.POST['senha']
-
-        user = User.objects.filter(username=username).first()
-
-        if user:
-            return HttpResponse('Já existe um usuario com o mesmo nome')
-
-        user = User.objects.create_user(username=username, email=email, password=senha)
-        user.save()
-        messages.success(request, 'Conta criada com sucesso!')
-        return redirect('login')'''
     if request.method == 'POST':
         form = ClienteForm(request.POST, request.FILES)
         if form.is_valid():
@@ -56,39 +39,6 @@ def cadastro(request):
     return render(request, 'auth/cadastro.html', {'form': form})
 
 def login(request):
-    """
-    View para autenticação de usuários.
-
-    Se o usuário já estiver autenticado, redireciona para a página de perfil.
-    Se o método da requisição for GET, renderiza a página de login.
-    Se o método da requisição for POST, tenta autenticar o usuário.
-
-    # Se o usuário já estiver autenticado, redirecione para a página de perfil
-    if request.user.is_authenticated:
-        return redirect('perfil')
-    # Se o método da requisição for GET, renderiza a página de login
-    if request.method == 'GET':
-        return render(request, 'auth/login.html')
-    else:
-        # Se o método da requisição for POST, tenta autenticar o usuário
-        username = request.POST.get('username')
-        senha = request.POST.get('senha')
-
-        user = authenticate(username=username, password=senha)
-
-        print(username)
-        print(senha)
-
-        if user:
-            # Se o usuário for autenticado com sucesso, faça login e redirecione para a página de perfil
-            login_django(request, user)
-            messages.success(request, 'Você fez login com sucesso!')
-            return redirect('perfil')
-            #return HttpResponse('Usuario logado')
-        else:
-            # Se a autenticação falhar, exiba uma mensagem de erro
-            mensagem_erro = "Usuário ou senha inválidos"
-            return render(request, 'auth/login.html', {'mensagem_erro': mensagem_erro})"""
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
@@ -101,6 +51,7 @@ def login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'auth/login.html', {'form': form})
+
 @login_required(login_url="/login")
 def plataforma(request):
     return HttpResponse('Voce esta logado')
@@ -128,7 +79,7 @@ def painel(request):
 
 @login_required
 @user_passes_test(is_staff_check, login_url='/acesso-negado/')
-def usuarios(request):
+def tab_usuarios(request):
     funcionarios = Funcionario.objects.all()
     clientes = Cliente.objects.all()
     context = {
@@ -137,12 +88,28 @@ def usuarios(request):
     }
     return render(request, 'painel/tabela_usuarios.html', context)
 
+@login_required
+@user_passes_test(is_staff_check, login_url='/acesso-negado/')
 def tab_produtos(request):
     produtos = Produto.objects.all()
     context = {
         'produtos': produtos,
     }
     return render(request, 'painel/tabela_produtos.html', context)
+
+@login_required
+@user_passes_test(is_staff_check, login_url='/acesso-negado/')
+def tab_servicos(request):
+    servicos = Servico.objects.all()
+    context = {
+        'servicos': servicos,
+    }
+    return render(request, 'painel/tabela_servicos.html', context)
+
+@login_required
+@user_passes_test(is_staff_check, login_url='/acesso-negado/')
+def admin_perfil (request):
+    return render(request, 'painel/profile.html')
 
 
 
