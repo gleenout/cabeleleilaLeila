@@ -12,8 +12,6 @@ def is_staff_check(user):
     return user.is_staff
 def acesso_negado(request):
     return HttpResponse('Acesso Negado! 💀')
-
-# Create your views here.
 def home(request):
     return render(request, 'home.html')
 def servicos(request):
