@@ -1,0 +1,47 @@
+{% extends 'auth/base_login.html' %}
+{% load static %}
+{% load tags %}
+{% block head_title %}Login{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="row align-items-center g-lg-5 py-5">
+                <div class="col-lg-7 text-center text-lg-start">
+                    {% element h1 %}
+                        Cadastro
+                    {% endelement %}
+                    <h1>Cabeleleila Leila</h1>
+                    <p class="col-lg-10 fs-4">Teste de cadastro</p>
+                </div>
+                <div class="col-md-10 mx-auto col-lg-5">
+                    {% element form form=form method="post" action=url tags="login" %}
+                        {% slot body %}
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            {% for field in form.visible_fields %}
+                                <div class="form-floating mb-3">
+                                    {{ field.label_tag }}
+                                    {{ field|addclass:'form-control'}}
+                                    {{ field.errors }}
+                                </div>
+                            {% endfor %}
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" value="remember-me"> Lembre-me
+                                </label>
+                            </div>
+                            <button class="w-100 btn btn-lg btn-primary" type="submit">Cadastre-se</button>
+                            <hr class="my-4">
+                            <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login</a></p>
+                            <small class="text-body-secondary">Ao se cadastrar, você aceita os termos.</small>
+                        {% endslot %}
+                    {% endelement %}
+                    {% if error_message %}
+                        <p>{{ error_message }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

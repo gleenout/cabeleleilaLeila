@@ -31,3 +31,29 @@ switch (nome){
         break;
 }*/
 
+// Seleciona elementos
+const btnLogout = document.getElementById('logout');
+const modal = document.getElementById('modal');
+
+// Ao clicar no botão logout, mostra o modal
+btnLogout.addEventListener('click', () => {
+    modal.style.display = "block";
+})
+const modalContainer = document.getElementById('modal-container');
+btnLogout.addEventListener('click', () => {
+    modalContainer.style.display = "block";
+})
+
+
+// Obter referência ao elemento <body>
+const body = document.querySelector('body');
+
+// Função para alternar entre os modos
+function toggleMode() {
+    body.classList.toggle('dark-mode');
+    body.classList.toggle('light-mode');
+}
+
+// Exemplo de uso: alternar o modo ao clicar em um botão
+const modeToggleButton = document.getElementById('modeToggleButton');
+modeToggleButton.addEventListener('click', toggleMode);

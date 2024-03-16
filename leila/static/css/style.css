@@ -34,6 +34,19 @@
     object-fit: cover;
 }
 
+/* Modo Escuro (Dark Mode) */
+body.dark-mode {
+    background-color: rgb(40, 36, 61);
+    color: #fff; /* Cor do texto para contraste */
+}
+
+/* Modo Claro (Light Mode) */
+body.light-mode {
+    background-color: #F4F5FA;
+    color: #333; /* Cor do texto para contraste */
+}
+
+
 /*.form-control-dark {
     border-color: var(--bs-gray);
 }

@@ -1,0 +1,7 @@
+{% load tags %}
+<form class="p-4 p-md-5 border rounded-3 bg-body-tertiary"  method="{{ attrs.method }}" action="{{ attrs.action }}">
+    {% slot body %}
+    {% endslot %}
+    {% slot actions %}
+    {% endslot %}
+</form> 

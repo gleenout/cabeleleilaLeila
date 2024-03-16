@@ -1,8 +1,7 @@
-{% extends 'menu.html' %}
+{% extends 'base_templates/menu.html' %}
 {% load static %}
 {% block head_title %}Produtos{% endblock %}
 {% block body %}
-
 
 <div class="caixa_app">
 
@@ -145,13 +144,14 @@
             </div>
           </div>
         </div>
+          {% for produto in produtos %}
         <div class="col">
           <div class="card shadow-sm">
               <div class="image-container">
                   <img src="https://imagizer.imageshack.com/img922/2866/VBURkX.jpg" x="0" y="0" height="100%" width="100%">
               </div>
            <div class="card-body">
-              <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Este é um cartão de apresentação do produto. </font><font style="vertical-align: inherit;">Este cartão não está finalizado.</font></font></p>
+              <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ produto.nome }} </font><font style="vertical-align: inherit;">Este cartão não está finalizado.</font></font></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Visualizar</font></font></button>
@@ -160,6 +160,7 @@
             </div>
           </div>
         </div>
+          {% endfor %}
       </div>
     </div>
   </div>
