@@ -11,6 +11,7 @@ Para executar este projeto você vai precisar:
 - Python 3.6+
 - Pip
 - Virtualenv (recomendado)
+- Conexção com a internet para rodar midia, css e js
 
 ## Configurando o ambiente
 
