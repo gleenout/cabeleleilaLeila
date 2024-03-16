@@ -50,10 +50,6 @@ def login(request):
         form = AuthenticationForm()
     return render(request, 'auth/login.html', {'form': form})
 
-@login_required(login_url="/login")
-def plataforma(request):
-    return HttpResponse('Voce esta logado')
-
 def logout(request):
     if request.method=='POST':
         do_logout(request)
@@ -62,20 +58,16 @@ def logout(request):
     else:
         return render(request, 'home.html')
 
-@login_required
+@login_required(login_url="/conta/login")
 def perfil(request):
     return render(request, 'auth/perfil.html')
 
-@login_required
+@login_required(login_url="/conta/login")
 @user_passes_test(is_staff_check, login_url='/acesso-negado/')
 def painel(request):
-    #if request.user.is_staff:
     return render(request, 'painel/painel.html')
-    #else:
-        # Redirecionar para outra página ou exibir uma mensagem de acesso negado
-        #return HttpResponse('Acesso Negado! 💀')
 
-@login_required
+@login_required(login_url="/conta/login")
 @user_passes_test(is_staff_check, login_url='/acesso-negado/')
 def tab_usuarios(request):
     funcionarios = Funcionario.objects.all()
@@ -86,7 +78,7 @@ def tab_usuarios(request):
     }
     return render(request, 'painel/tabela_usuarios.html', context)
 
-@login_required
+@login_required(login_url="/conta/login")
 @user_passes_test(is_staff_check, login_url='/acesso-negado/')
 def tab_produtos(request):
     produtos = Produto.objects.all()
@@ -95,7 +87,7 @@ def tab_produtos(request):
     }
     return render(request, 'painel/tabela_produtos.html', context)
 
-@login_required
+@login_required(login_url="/conta/login")
 @user_passes_test(is_staff_check, login_url='/acesso-negado/')
 def tab_servicos(request):
     servicos = Servico.objects.all()
@@ -104,7 +96,7 @@ def tab_servicos(request):
     }
     return render(request, 'painel/tabela_servicos.html', context)
 
-@login_required
+@login_required(login_url="/conta/login")
 @user_passes_test(is_staff_check, login_url='/acesso-negado/')
 def admin_perfil (request):
     return render(request, 'painel/profile.html')

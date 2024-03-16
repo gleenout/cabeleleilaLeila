@@ -8,11 +8,12 @@ urlpatterns = [
     path('servicos/', views.servicos, name='servicos'),
     path('agendamento/', views.agendamento, name='agendamento'),
     path('produtos/', views.produtos, name='produtos'),
-    path('login/',views.login, name='login'),
-    path('cadastro/', views.cadastro, name='cadastro'),
-    path('perfil/', views.perfil, name='perfil'),
-    path('logout/', views.logout, name='logout'),
 
+    #Autenticar
+    path('conta/login/',views.login, name='login'),
+    path('conta/cadastro/', views.cadastro, name='cadastro'),
+    path('conta/perfil/', views.perfil, name='perfil'),
+    path('conta/logout/', views.logout, name='logout'),
 
     #Painel admnistrativo
     path('dm/painel/', views.painel, name='painel'),
