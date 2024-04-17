@@ -1,0 +1,59 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}{% if form_funcionario.instance.pk %}Editar Funcionário{% else %}Criar Funcionário{% endif %}{% endblock %}
+{% block strong %}
+    {% if form_funcionario.instance.pk %}Editar Funcionário{% else %}Criar Funcionário{% endif %}
+{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Campos do FuncionarioForm -->
+                    {{ form_funcionario.as_p }}
+                </div>
+                <div class="col-md-6">
+                    <!-- Campos do UsuarioForm -->
+                    <div id="usuario-form">
+                        {% for field in form_usuario %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if form_funcionario.instance.pk %}
+                        <button type="button" id="editar-usuario-btn" class="btn btn-primary">Editar Usuário</button>
+                    {% endif %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var $usuarioForm = $('#usuario-form');
+            var $editarUsuarioBtn = $('#editar-usuario-btn');
+
+            if ($editarUsuarioBtn.length) {
+                $usuarioForm.hide();
+            }
+
+            $editarUsuarioBtn.click(function() {
+                $usuarioForm.slideDown();
+                $(this).hide();
+            });
+        });
+    </script>
+{% endblock %}

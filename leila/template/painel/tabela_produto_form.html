@@ -1,0 +1,41 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}{% if form.instance.pk %}Editar Produto{% else %}Criar Criar Produto{% endif %}{% endblock %}
+{% block strong %}
+    {% if form.instance.pk %}Editar Produto{% else %}Criar Produto{% endif %}
+{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.nome.label_tag }}
+                        {{ form.nome }}
+                        {{ form.nome.errors }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.descricao.label_tag }}
+                        {{ form.descricao }}
+                        {{ form.descricao.errors }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.estoque.label_tag }}
+                        {{ form.estoque }}
+                        {{ form.estoque.errors }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.duracao.label_tag }}
+                        {{ form.duracao }}
+                        {{ form.duracao.errors }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+{% endblock %}

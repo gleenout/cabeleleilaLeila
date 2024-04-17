@@ -1,0 +1,25 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Detalhes do Produto{% endblock %}
+{% block strong %}Detalhes do Produto{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{ produto.nome }}</h4>
+                <p><strong>Descrição:</strong> {{ produto.descricao }}</p>
+                <p><strong>Estoque:</strong> {{ produto.estoque }}</p>
+                <p><strong>Data de Criação:</strong> {{ produto.data_criacao }}</p>
+                <p><strong>Data de Atualização:</strong> {{ produto.data_atualizacao }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'editar_produto' produto.pk %}" class="btn btn-primary">Editar</a>
+        <form action="{% url 'deletar_produto' produto.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>
+{% endblock %}

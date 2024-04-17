@@ -1,0 +1,26 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Detalhes do Serviço{% endblock %}
+{% block strong %}Detalhes do Serviço{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{ servico.nome }}</h4>
+                <p><strong>Descrição:</strong> {{ servico.descricao }}</p>
+                <p><strong>Preço:</strong> {{ servico.preco }}</p>
+                <p><strong>Duração:</strong> {{ servico.duracao }}</p>
+                <p><strong>Data de Criação:</strong> {{ servico.data_criacao }}</p>
+                <p><strong>Data de Atualização:</strong> {{ servico.data_atualizacao }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'editar_servico' servico.pk %}" class="btn btn-primary">Editar</a>
+        <form action="{% url 'deletar_servico' servico.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>
+{% endblock %}

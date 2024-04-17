@@ -1,0 +1,42 @@
+{% extends 'painel/base_painel.html' %}
+
+{% block body %}
+    <main style="margin-top: 58px">
+        <div class="container pt-4">
+            <!-- Section: Main-->
+            <section class="text-center">
+                <div class="card">
+                    <div class="card-header py-3 bg-primary text-white">
+                        <h5 class="mb-0 text-center"><strong>Calendário | {{ mes }} {{ ano }}</strong></h5>
+                    </div>
+                    <div class="card-body my-4 w-100">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover text-center">
+                            <thead class="table-info">
+                                <tr class="bg-light">
+                                    <th scope="col">Seg</th>
+                                    <th scope="col">Ter</th>
+                                    <th scope="col">Qua</th>
+                                    <th scope="col">Qui</th>
+                                    <th scope="col">Sex</th>
+                                    <th scope="col">Sab</th>
+                                    <th scope="col">Dom</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider table-divider-color">
+                                {% for semana in calendario_mes %}
+                                    <tr>
+                                        {% for dia in semana %}
+                                            <td class="{% if dia == None %} text-muted {% endif %}">{{ dia|default:" " }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

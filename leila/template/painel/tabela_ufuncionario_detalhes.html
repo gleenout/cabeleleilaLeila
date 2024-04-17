@@ -1,0 +1,33 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Detalhes do Funcionário{% endblock %}
+{% block strong %}Detalhes do Funcionário{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                {% if funcionario.imagem_perfil %}
+                    <img src="{{ funcionario.imagem_perfil.url }}" alt="{{ funcionario.nome }}" class="img-fluid rounded-circle">
+                {% else %}
+                    <img src="{% static 'imagens/padrao.jpg' %}" alt="{{ funcionario.nome }}" class="img-fluid rounded-circle">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h4>{{ funcionario.nome }}</h4>
+                <p><strong>Email:</strong> {{ funcionario.email }}</p>
+                <p><strong>Telefone:</strong> {{ funcionario.telefone }}</p>
+                <p><strong>Cargo:</strong> {{ funcionario.get_cargo_display }}</p>
+                <p><strong>Data de Admissão:</strong> {{ funcionario.data_admissao }}</p>
+                <p><strong>Usuário:</strong> {{ funcionario.usuario.username }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'editar_funcionario' funcionario.pk %}" class="btn btn-primary">Editar</a>
+        <form action="{% url 'deletar_funcionario' funcionario.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>
+{% endblock %}

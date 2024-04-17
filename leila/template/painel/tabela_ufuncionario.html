@@ -1,0 +1,63 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Funcionários{% endblock %}
+{% block strong %}Funcionários{% endblock %}
+
+{% block iconeadd %}
+    <a href="{% url 'criar_funcionario' %}" class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark">
+        <i class="bi bi-plus-circle"></i>
+        <span>Adicionar</span>
+    </a>
+{% endblock %}
+
+{% block section %}
+    <div>
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+            <tr>
+                <th>Nome/Email</th>
+                <th>Cargo/Telefone</th>
+                <th>Data de Admissão</th>
+                <th>Usuário</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for funcionario in funcionarios %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            {% if funcionario.imagem_perfil %}
+                                <img src="{{ funcionario.imagem_perfil.url }}" alt="{{ funcionario.nome }}" style="width: 45px; height: 45px" class="rounded-circle">
+                            {% else %}
+                                <img src="{% static 'imagens/padrao.jpg' %}" alt="{{ funcionario.nome }}" style="width: 45px; height: 45px" class="rounded-circle">
+                            {% endif %}
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">{{ funcionario.nome }}</p>
+                                <p class="text-muted mb-0">{{ funcionario.email }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">{{ funcionario.get_cargo_display }}</p>
+                        <p class="text-muted mb-0">{{ funcionario.telefone }}</p>
+                    </td>
+                    <td>{{ funcionario.data_admissao }}</td>
+                    <td>{{ funcionario.usuario.username }}</td>
+                    <td>
+                        <a href="{% url 'detalhe_funcionario' funcionario.pk %}" class="btn btn-link btn-sm btn-rounded">
+                            Detalhes
+                        </a>
+                        <a href="{% url 'editar_funcionario' funcionario.pk %}" class="btn btn-link btn-sm btn-rounded">
+                            Editar
+                        </a>
+                        <a href="{% url 'deletar_funcionario' funcionario.pk %}" class="btn btn-link btn-sm btn-rounded">
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

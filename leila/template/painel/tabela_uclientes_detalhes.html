@@ -1,0 +1,36 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Detalhes do Cliente{% endblock %}
+
+{% block section %}
+    <section class="mb-4">
+        <div class="card">
+            <div class="card-header py-3">
+                <h5 class="mb-0 text-center"><strong>Detalhes do Cliente</strong></h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if cliente.imagem_perfil %}
+                            <img src="{{ cliente.imagem_perfil.url }}" alt="{{ cliente.nome }}" class="img-fluid rounded-circle">
+                        {% else %}
+                            <img src="{% static 'imagens/padrao.jpg' %}" alt="{{ cliente.nome }}" class="img-fluid rounded-circle">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <h4>{{ cliente.nome }}</h4>
+                        <p><strong>Email:</strong> {{ cliente.email }}</p>
+                        <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+                        <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+                        <p><strong>Usuário:</strong> {{ cliente.usuario.username }}</p>
+                        <p><strong>Data de cadastro:</strong> {{ cliente.data_criacao }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'editar_cliente' cliente.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'deletar_cliente' cliente.pk %}" class="btn btn-danger">Excluir</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

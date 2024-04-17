@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'agendaServico',
+    'widget_tweaks'
 ]
 
 SITE_ID = 1

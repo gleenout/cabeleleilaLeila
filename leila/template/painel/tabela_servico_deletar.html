@@ -1,0 +1,15 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Excluir Serviços{% endblock %}
+{% block strong %}Excluir Serviços{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <p>Você tem certeza de que deseja excluir o Serviço "{{ servico.nome }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim, excluir</button>
+            <a href="{% url 'tabela_funcionario' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

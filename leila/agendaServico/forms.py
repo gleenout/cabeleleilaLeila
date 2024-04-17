@@ -1,6 +1,20 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Cliente
+from .models import Cliente, Funcionario, Servico, Produto
+
+class UsuarioForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
+            if field.required:
+                field.widget.attrs.update({'required': 'required'})
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
 class ClienteForm(forms.ModelForm):
     username = forms.CharField(max_length=150)
@@ -8,7 +22,10 @@ class ClienteForm(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['nome', 'email', 'telefone']
+        fields = ['nome', 'email', 'telefone', 'endereco' ]
+        widgets = {
+            'data_criacao': forms.DateInput(attrs={'type': 'date'})
+        }
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -26,3 +43,36 @@ class ClienteForm(forms.ModelForm):
         if commit:
             cliente.save()
         return cliente
+
+class FuncionarioForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
+            if field.required:
+                field.widget.attrs.update({'required': 'required'})
+
+    class Meta:
+        model = Funcionario
+        fields = ['nome', 'email', 'telefone', 'cargo', 'data_admissao', 'imagem_perfil']
+        widgets = {
+            'data_admissao': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'},  format='%Y-%m-%d'),
+            'imagem_perfil': forms.FileInput(attrs={'class': 'form-control-file'})
+        }
+class ProdutoForm(forms.ModelForm):
+    class Meta:
+        model = Produto
+        fields = ['nome', 'descricao', 'estoque']
+        widgets = {
+            'data_criacao': forms.DateInput(attrs={'type': 'date'}),
+            'data_atualizacao': forms.DateInput(attrs={'type': 'date'})
+        }
+
+class ServicoForm(forms.ModelForm):
+    class Meta:
+        model = Servico
+        fields = ['nome', 'descricao', 'preco', 'duracao']
+        widgets = {
+            'data_criacao': forms.DateInput(attrs={'type': 'date'}),
+            'data_atualizacao': forms.DateInput(attrs={'type': 'date'})
+        }

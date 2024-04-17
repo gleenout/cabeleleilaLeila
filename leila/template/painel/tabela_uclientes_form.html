@@ -1,0 +1,60 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}{% if form.instance.pk %}Editar Cliente{% else %}Criar Cliente{% endif %}{% endblock %}
+
+{% block section %}
+    <section class="mb-4">
+        <div class="card">
+            <div class="card-header py-3">
+                <h5 class="mb-0 text-center"><strong>{% if form.instance.pk %}Editar Cliente{% else %}Criar Cliente{% endif %}</strong></h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.nome.label_tag }}
+                                {{ form.nome }}
+                                {{ form.nome.errors }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.telefone.label_tag }}
+                                {{ form.telefone }}
+                                {{ form.telefone.errors }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.endereco.label_tag }}
+                                {{ form.endereco }}
+                                {{ form.endereco.errors }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label_tag }}
+                                {{ form.password }}
+                                {{ form.password.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_imagem_perfil">Imagem de Perfil</label>
+                                {{ form.imagem_perfil }}
+                                {{ form.imagem_perfil.errors }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

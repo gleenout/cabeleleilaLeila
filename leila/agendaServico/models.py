@@ -5,10 +5,22 @@ class Funcionario(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField()
     telefone = models.CharField(max_length=20)
-    cargo = models.CharField(max_length=50)
+    cargo = models.CharField(max_length=50, choices=(
+        ('admin', 'Administrador'),
+        ('funcionario', 'Funcionário')
+    ))
     data_admissao = models.DateField()
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='funcionario', null=True)
     imagem_perfil = models.FileField(upload_to='funcionarios', null=True, blank=True)
+
+    def delete(self, *args, **kwargs):
+        # Excluir o usuário vinculado ao funcionário
+        if self.usuario:
+            self.usuario.delete()
+
+        # Excluir o funcionário
+        super().delete(*args, **kwargs)
+
 
     def __str__(self):
         return self.nome
