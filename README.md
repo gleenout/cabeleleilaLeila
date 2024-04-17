@@ -38,9 +38,6 @@ pip install django
 ```
 pip install dj-static
 ```
-```
-pip install django-allauth
-```
 
 ## Executando
 ```
