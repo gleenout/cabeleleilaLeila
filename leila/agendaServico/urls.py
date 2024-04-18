@@ -1,9 +1,16 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
+from .viewset import FuncionarioViewSet
+
+routers = routers.DefaultRouter()
+routers.register(r'funcionario', FuncionarioViewSet, basename="Funcionario")
 
 urlpatterns = [
+    path('api/', include(routers.urls)),
+
     path('', views.home, name='home'),
     path('servicos/', views.servicos, name='servicos'),
     path('agendamento/', views.agendamento, name='agendamento'),

@@ -1,42 +1,101 @@
 {% extends 'painel/base_painel.html' %}
-
 {% block body %}
+
     <main style="margin-top: 58px">
-        <div class="container pt-4">
-            <!-- Section: Main-->
-            <section class="text-center">
-                <div class="card">
-                    <div class="card-header py-3 bg-primary text-white">
-                        <h5 class="mb-0 text-center"><strong>Calendário | {{ mes }} {{ ano }}</strong></h5>
-                    </div>
-                    <div class="card-body my-4 w-100">
-                        <div class="card-body">
-                            <table class="table table-bordered table-hover text-center">
-                            <thead class="table-info">
-                                <tr class="bg-light">
-                                    <th scope="col">Seg</th>
-                                    <th scope="col">Ter</th>
-                                    <th scope="col">Qua</th>
-                                    <th scope="col">Qui</th>
-                                    <th scope="col">Sex</th>
-                                    <th scope="col">Sab</th>
-                                    <th scope="col">Dom</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider table-divider-color">
-                                {% for semana in calendario_mes %}
-                                    <tr>
-                                        {% for dia in semana %}
-                                            <td class="{% if dia == None %} text-muted {% endif %}">{{ dia|default:" " }}</td>
-                                        {% endfor %}
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                            </table>
-                        </div>
-                    </div>
+    <div class="container pt-4">
+    <!-- Section: Main-->
+    <section class="mb-4">
+        <div class="card">
+            <div class="card-header py-3 bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><strong>Calendário para {{ mes }} {{ ano }}</strong></h5>
+                <div>
+                    <button class="btn btn-light btn-sm" id="prevMonth">&#8249;</button>
+                    <button class="btn btn-light btn-sm" id="nextMonth">&#8250;</button>
                 </div>
-            </section>
+            </div>
+            <div class="card-body my-4 w-100">
+                <div class="card-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <tr class="bg-light">
+                            <th scope="col">Seg</th>
+                            <th scope="col">Ter</th>
+                            <th scope="col">Qua</th>
+                            <th scope="col">Qui</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Sab</th>
+                            <th scope="col">Dom</th>
+                        </tr>
+                        {% for semana in calendario_mes %}
+                            <tr>
+                                {% for dia in semana %}
+                                    <td class="{% if dia == None %} text-muted {% elif dia == dia_atual %} bg-info text-white {% endif %}">{{ dia|default:" " }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        // Obter o mês e ano atual
+        let currentMonth = {{ ano }};
+        let currentYear = '{% autoescape off %}{{ mes }}{% endautoescape %}';   
+
+        // Obter os botões de navegação do mês
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+
+        // Função para atualizar o calendário
+        function updateCalendar(month, year) {
+            // Converter mês e ano para números inteiros válidos
+            const validMonth = parseInt(month, 10);
+            const validYear = parseInt(year, 10);
+
+            // Verificar se os valores são válidos
+            if (!isNaN(validMonth) && !isNaN(validYear)) {
+                const url = `/calendario/${validYear}/${validMonth}/`;
+                window.location.href = url;
+            } else {
+                console.error('Valores de mês ou ano inválidos:', month, year);
+            }
+        }
+
+        // Lidar com o clique no botão do mês anterior
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            updateCalendar(currentMonth, currentYear);
+        });
+
+        // Lidar com o clique no botão do próximo mês
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            }
+            updateCalendar(currentMonth, currentYear);
+        });
+
+        // Obter o dia atual
+        const currentDate = new Date();
+        const currentDay = currentDate.getDate();
+
+        // Realçar o dia atual na tabela
+        const cells = document.querySelectorAll('td');
+        cells.forEach(cell => {
+            const cellValue = parseInt(cell.textContent.trim());
+            if (cellValue === currentDay) {
+                cell.classList.add('bg-info', 'text-white');
+            }
+        });
+    </script>
 {% endblock %}
