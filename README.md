@@ -68,9 +68,11 @@ Para acesso administrativo do django, ``http://127.0.0.1:8000/admin``.
 Para acesso do painel adminstrativo da aplicação, ``http://127.0.0.1:8000/dm/painel``. (Requer usuário Staff)
 
 ### Usuários de teste
-Cliente Username e senha: ``Cliente123``.
+Cliente Usuário: ``Cliente123``.
+Cliente Senha: ``django1234``
 
-Administrador Username e Senha: ``Admin123``.
+Administrador Usuário: ``Admin123``.
+Administrador Senha: ``django1234``
 
 ### Criar um super usuário
 ```
