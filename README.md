@@ -1,8 +1,10 @@
 # Cabeleleila leila
 Este repositório contém um projeto Django com as seguintes funcionalidades:
 
-- Sistema de autenticação de usuários
-- Outras a serem implementadas
+- Sistema de autenticação de usuários.
+- Cadastro de clientes, funcionários, agendamento, etc.
+- Agendamento com a API FullCalendar
+- Painel para admintrar clientes, funcionários, agendamentos, etc.
 
 ## Pré-requisitos
 
@@ -38,6 +40,9 @@ pip install django
 ```
 pip install dj-static
 ```
+```
+pip install djangorestframework
+```
 
 ## Executando
 ```
@@ -56,6 +61,18 @@ Em seguida, rode o servidor de desenvolvimento:
 python manage.py runserver
 ```
 
-Acesse http://localhost:8000 no navegador para visualizar o projeto.
+Acesse ``http://127.0.0.1:8000/`` no navegador para visualizar o projeto.
 
-Para acesso administrativo, acesse http://localhost:8000/admin.
+Para acesso administrativo do django, ``http://127.0.0.1:8000/admin``.
+
+Para acesso do painel adminstrativo da aplicação, ``http://127.0.0.1:8000/dm/painel``. (Requer usuário Staff)
+
+### Usuários de teste
+Cliente Username e senha: ``Cliente123``.
+
+Administrador Username e Senha: ``Admin123``.
+
+### Criar um super usuário
+```
+py manage.py createsuperuser
+```
