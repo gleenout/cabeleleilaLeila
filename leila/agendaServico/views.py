@@ -209,7 +209,7 @@ def tabela_produto(request):
 
 @staff_required
 def detalhe_produto(request, pk):
-    produto = get_object_or_404(Servico, pk=pk)
+    produto = get_object_or_404(Produto, pk=pk)
     return render(request, 'painel/tabela_produto_detalhes.html', {'produto': produto})
 
 @staff_required
