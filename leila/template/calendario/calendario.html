@@ -1,101 +1,191 @@
-{% extends 'painel/base_painel.html' %}
-{% block body %}
+{% extends 'calendario/base.html' %}{% load static %}
+{% block style %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+{% endblock %}
+{% block body %}
     <main style="margin-top: 58px">
-    <div class="container pt-4">
-    <!-- Section: Main-->
-    <section class="mb-4">
-        <div class="card">
-            <div class="card-header py-3 bg-primary text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"><strong>Calendário para {{ mes }} {{ ano }}</strong></h5>
-                <div>
-                    <button class="btn btn-light btn-sm" id="prevMonth">&#8249;</button>
-                    <button class="btn btn-light btn-sm" id="nextMonth">&#8250;</button>
+        <div class="container pt-4">
+            <!-- Section: Main-->
+            <section class="mb-4">
+                <div class="card">
+                    <div class="card-body my-4 w-100">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover text-center">
+
+                                <div id='calendar'></div>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- MODAL -->
+            <div class="modal fade" id="agendamentoModal" aria-hidden="true" aria-labelledby="AgendamentoModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalToggleLabel1">Agendar: DATA</h5>
+                            <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="{% url 'calendario' %}">
+                            <div class="modal-body">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="id_data">Data:</label>
+                                    <input type="text" id="id_data" name="data" value="" readonly>
+                                </div>
+                                {% if horarios_disponiveis %}
+                                    <div class="form-group">
+                                        <label for="id_horario">Horário:</label>
+                                        <select id="id_horario" name="horario" class="form-control">
+                                            {% for horario in horarios_disponiveis %}
+                                                <option value="{{ horario.id }}">{{ horario }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% else %}
+                                    <p>Não há horários disponíveis.</p>
+                                {% endif %}
+                                <div class="form-group">
+                                    {{ form.servico.label_tag }}
+                                    {{ form.servico }}
+                                </div>
+                                <input type="hidden" name="usuario" value="{{ request.user.id }}">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Fechar</button>
+                                <button class="btn btn-primary" data-mdb-ripple-init data-mdb-target="#exampleModalToggle22" data-mdb-modal-init data-mdb-dismiss="modal">
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="card-body my-4 w-100">
-                <div class="card-body">
-                    <table class="table table-bordered table-hover text-center">
-                        <tr class="bg-light">
-                            <th scope="col">Seg</th>
-                            <th scope="col">Ter</th>
-                            <th scope="col">Qua</th>
-                            <th scope="col">Qui</th>
-                            <th scope="col">Sex</th>
-                            <th scope="col">Sab</th>
-                            <th scope="col">Dom</th>
-                        </tr>
-                        {% for semana in calendario_mes %}
-                            <tr>
-                                {% for dia in semana %}
-                                    <td class="{% if dia == None %} text-muted {% elif dia == dia_atual %} bg-info text-white {% endif %}">{{ dia|default:" " }}</td>
+            <section class="mb-4">
+                <div class="card">
+                    <div class="card-body my-4 w-100">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover text-center">
+                                <thead>
+                                <tr>
+                                    <th>Serviço</th>
+                                    <th>Data</th>
+                                    <th>Horário</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for agendamento in agendamentos %}
+                                    <tr>
+                                        <td>{{ agendamento.servico.nome }}</td>
+                                        <td>{{ agendamento.data }}</td>
+                                        <td>{{ agendamento.horario }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#confirmarApagamentoModal">
+                                                Deletar
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmarApagamentoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            Você tem certeza disso?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Fechar</button>
+                                                            <a href="{% url 'apagar_agendamento' agendamento.id %}" class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-trash"></i> Deletar
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4">Não há agendamentos.</td>
+                                    </tr>
                                 {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </main>
 
 {% endblock %}
 
 {% block script %}
+    <script src="{% static 'fullcalendar/pt-br.global.js' %}"></script>
     <script>
-        // Obter o mês e ano atual
-        let currentMonth = {{ ano }};
-        let currentYear = '{% autoescape off %}{{ mes }}{% endautoescape %}';   
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                contentHeight: 600,
+                initialView: 'dayGridMonth',
+                selectable: true,
+                headerToolbar: {
+                    center: 'dayGridMonth,timeGridWeek'
+                },
+                views: {
+                    dayGridMonth: {
+                        titleFormat: { year: 'numeric', month: 'long', day: 'numeric' }
+                    },
+                    timeGridWeek: {
+                        titleFormat: { year: 'numeric', month: 'long', day: 'numeric' }
+                    }
+                },
+                locale: 'pt-br',
+                dateClick: function(info) {
+                    var dataClicada = info.dateStr;
+                    $('#agendamentoModal').data('date', dataClicada);
+                    $('#agendamentoModal').modal('show');
+                },
+                businessHours: [ // specify an array instead
+                    {
+                        daysOfWeek: [ 1, 2, 3, 4, 5 ], // Segunda, Terça, Quarta, Quinta, Sexta
+                        startTime: '08:00', // 8am
+                        endTime: '18:00' // 6pm
+                    },
+                    {
+                        daysOfWeek: [ 6 ], // Sábado
+                        startTime: '08:00', // 8am
+                        endTime: '16:00' // 4pm
+                    }
+                ],
+                
+                events: [
+                    { // this object will be "parsed" into an Event Object
+                        id: 'a',
+                        title: 'TESTE', // a property!
+                        start: '2024-05-16', // a property!
+                        end: '2024-05-17', // a property! ** see important note below about 'end' **
+                    }
+                ],
+                eventClick: function(info) {
+                    alert('Event: ISSO É um teste');
 
-        // Obter os botões de navegação do mês
-        const prevMonthBtn = document.getElementById('prevMonth');
-        const nextMonthBtn = document.getElementById('nextMonth');
+                    // change the border color just for fun
+                    info.el.style.borderColor = 'red';
+                }
+            });
 
-        // Função para atualizar o calendário
-        function updateCalendar(month, year) {
-            // Converter mês e ano para números inteiros válidos
-            const validMonth = parseInt(month, 10);
-            const validYear = parseInt(year, 10);
-
-            // Verificar se os valores são válidos
-            if (!isNaN(validMonth) && !isNaN(validYear)) {
-                const url = `/calendario/${validYear}/${validMonth}/`;
-                window.location.href = url;
-            } else {
-                console.error('Valores de mês ou ano inválidos:', month, year);
-            }
-        }
-
-        // Lidar com o clique no botão do mês anterior
-        prevMonthBtn.addEventListener('click', () => {
-            currentMonth--;
-            if (currentMonth < 1) {
-                currentMonth = 12;
-                currentYear--;
-            }
-            updateCalendar(currentMonth, currentYear);
+            var event = calendar.getEventById('a') // an event object!
+            var start = event.start // a property (a Date object)
+            console.log(start.toISOString()) // "2018-09-01T00:00:00.000Z"
+            calendar.render();
         });
-
-        // Lidar com o clique no botão do próximo mês
-        nextMonthBtn.addEventListener('click', () => {
-            currentMonth++;
-            if (currentMonth > 12) {
-                currentMonth = 1;
-                currentYear++;
-            }
-            updateCalendar(currentMonth, currentYear);
-        });
-
-        // Obter o dia atual
-        const currentDate = new Date();
-        const currentDay = currentDate.getDate();
-
-        // Realçar o dia atual na tabela
-        const cells = document.querySelectorAll('td');
-        cells.forEach(cell => {
-            const cellValue = parseInt(cell.textContent.trim());
-            if (cellValue === currentDay) {
-                cell.classList.add('bg-info', 'text-white');
-            }
+    </script>
+    <script>
+        $('#agendamentoModal').on('shown.bs.modal', function() {
+            var dataClicada = $(this).data('date');
+            $('#id_data').val(dataClicada);
         });
     </script>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Cliente, Funcionario, Servico, Produto
+from .models import Cliente, Funcionario, Servico, Produto, Agendamento, Horario
 
 class UsuarioForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -62,7 +62,7 @@ class FuncionarioForm(forms.ModelForm):
 class ProdutoForm(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome', 'descricao', 'estoque']
+        fields = ['nome', 'descricao', 'estoque', 'imagem_produto']
         widgets = {
             'data_criacao': forms.DateInput(attrs={'type': 'date'}),
             'data_atualizacao': forms.DateInput(attrs={'type': 'date'})
@@ -76,3 +76,17 @@ class ServicoForm(forms.ModelForm):
             'data_criacao': forms.DateInput(attrs={'type': 'date'}),
             'data_atualizacao': forms.DateInput(attrs={'type': 'date'})
         }
+
+class HorarioForm(forms.ModelForm):
+    class Meta:
+        model = Horario
+        fields = ['hora_inicio', 'hora_fim']
+        widgets = {
+            'hora_inicio': forms.TimeInput(attrs={'type': 'time'}),
+            'hora_fim': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
+class AgendamentoForm(forms.ModelForm):
+    class Meta:
+        model = Agendamento
+        fields = ['data', 'horario', 'servico', 'usuario']

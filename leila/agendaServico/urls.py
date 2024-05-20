@@ -13,7 +13,6 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('servicos/', views.servicos, name='servicos'),
-    path('agendamento/', views.agendamento, name='agendamento'),
     path('produtos/', views.produtos, name='produtos'),
 
     #Autenticar
@@ -23,7 +22,8 @@ urlpatterns = [
     path('conta/logout/', views.logout, name='logout'),
 
     #TESTE
-    path('conta/newlogin/',views.newlogin, name='newlogin'),
+    path('calendario/', views.calendario, name='calendario'),
+    path('dm/painel/horarios/', views.gerenciar_horarios, name='horarios'),
 
     #Painel admnistrativo
     path('dm/painel/', views.painel, name='painel'),
@@ -52,9 +52,13 @@ urlpatterns = [
     path('dm/painel/usuarios/servico/<int:pk>/editar/', views.editar_servico, name='editar_servico'),
     path('dm/painel/usuarios/servico/<int:pk>/deletar/', views.deletar_servico, name='deletar_servico'),
 
+    path('dm/painel/tabela-agendamentos/', views.tabela_agendamentos, name='tabela_agendamentos'),
+    path('dm/painel/criar-agendamento/', views.criar_agendamento, name='criar_agendamento'),
+    path('dm/painel/deletar_agendamento/<int:agendamento_id>/', views.deletar_agendamento, name='deletar_agendamento'),
+    path('dm/painel/editar-agendamento/<int:agendamento_id>/', views.editar_agendamento, name='editar_agendamento'),
+
     path('dm/painel/usuarios/editar-usuario/<int:pk>/', views.editar_usuario, name='editar_usuario'),
 
-    path('calendario/', views.calendario, name='calendario'),
 
     path('acesso-negado/', views.acesso_negado, name='acesso_negado'),
     path('dm/painel/perfil/', views.admin_perfil, name='admin_perfil')

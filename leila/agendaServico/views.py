@@ -2,14 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .forms import ClienteForm, FuncionarioForm, ProdutoForm, ServicoForm, UsuarioForm
-from .models import Produto, Funcionario, Cliente, Servico, User
+from .forms import ClienteForm, FuncionarioForm, ProdutoForm, ServicoForm, UsuarioForm, AgendamentoForm, HorarioForm
+from .models import Produto, Funcionario, Cliente, Servico, User, Agendamento, Horario
 from django.utils import timezone
-from django.utils.crypto import get_random_string
-from django.urls import reverse
 
 #========TESTE==============
 def is_staff_check(user):
@@ -19,20 +16,17 @@ def acesso_negado(request):
 def staff_required(view_func):
     decorated_view = login_required(user_passes_test(is_staff_check, login_url='/acesso-negado/')(view_func))
     return decorated_view
-def generate_random_pk():
-    return get_random_string(length=5, allowed_chars='0123456789')
 #============================
 
 def home(request):
     return render(request, 'home.html')
 def servicos(request):
-  return render(request,  'servicos.html')
-def agendamento(request):
-    return render(request, 'agendamento.html')
+    servicos = Servico.objects.all()
+    return render(request,  'servicos.html', {'servicos': servicos})
 def produtos(request):
     produtos = Produto.objects.all()
     context = {'produtos': produtos}
-    return render(request, 'produtos.html')
+    return render(request, 'produtos.html', context)
 
 def cadastro(request):
     if request.method == 'POST':
@@ -61,6 +55,7 @@ def login(request):
         form = AuthenticationForm()
     return render(request, 'auth/login.html', {'form': form})
 
+@login_required(login_url="/conta/login")
 def logout(request):
     if request.method=='POST':
         do_logout(request)
@@ -76,6 +71,10 @@ def perfil(request):
 @staff_required
 def painel(request):
     return render(request, 'painel/dm_painel.html')
+
+@staff_required
+def painel_perfil(request):
+    return render(request, 'painel/dm_perfil.html')
 
 #==========FUNCIONARIO==========
 @staff_required
@@ -288,21 +287,90 @@ def deletar_servico(request, pk):
     return render(request, 'painel/tabela_servico_deletar.html', {'servico': servico})
 #==========SERVIÇOS==========
 
+#==========AGENDAMENTOS==========
+@staff_required
+def tabela_agendamentos(request):
+    agendamentos = Agendamento.objects.all()
+    context = {'agendamentos': agendamentos}
+    return render(request, 'painel/tabela_agendamentos.html', context)
+
+
+def criar_agendamento(request):
+    if request.method == 'POST':
+        form = AgendamentoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tabela_agendamentos')  # Redireciona para a tabela de agendamentos após salvar
+    else:
+        form = AgendamentoForm()
+
+    return render(request, 'painel/tabela_agendamento_form.html', {'form': form})
+
+@staff_required
+def editar_agendamento(request, agendamento_id):
+    agendamento = get_object_or_404(Agendamento, id=agendamento_id)
+    if request.method == 'POST':
+        form = AgendamentoForm(request.POST, instance=agendamento)
+        if form.is_valid():
+            form.save()
+            return redirect('tabela_agendamentos')
+    else:
+        form = AgendamentoForm(instance=agendamento)
+    return render(request, 'painel/tabela_agendamento_form.html', {'form': form})
+
+def deletar_agendamento(request, agendamento_id):
+    agendamento = get_object_or_404(Agendamento, id=agendamento_id)
+    if request.method == 'POST':
+        agendamento.delete()
+        return redirect('tabela_agendamentos')
+    return render(request, 'painel/tabela_agendamento_delete.html', {'agendamento': agendamento})
+#==========AGENDAMENTOS==========
+
 @staff_required
 def admin_perfil (request):
     return render(request, 'painel/dm_perfil.html')
 
-def newlogin (request):
-    return render(request, 'auth/new_login.html')
+def gerenciar_horarios(request):
+    horarios = Horario.objects.all()
+    form = HorarioForm(request.POST or None)
 
-import calendar
-from datetime import datetime
-def calendario(request, ano=datetime.now().year, mes=datetime.now().strftime('%B').lower()):
-    mes = mes.capitalize()
-    calendario_mes = calendar.monthcalendar(ano, list(calendar.month_name).index(mes))
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('gerenciar_horarios')
 
-    return render(request, 'calendario/calendario.html', {'ano': ano, 'mes': mes, 'calendario_mes': calendario_mes})
+    context = {
+        'horarios': horarios,
+        'form': form,
+    }
+    return render(request, 'painel/gerenciar_horarios.html', context)
 
+@login_required
+def calendario(request):
+    agendamentos = Agendamento.objects.all()
+    form = AgendamentoForm()
+    horarios_disponiveis = Horario.objects.all()
 
+    if request.method == 'POST':
+        form = AgendamentoForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data.pop('data')
+            horario = form.cleaned_data.pop('horario')
+            servico = form.cleaned_data.pop('servico')
 
+            agendamento = Agendamento.objects.create(
+                data=data,
+                horario=horario,
+                servico=servico,
+                usuario=request.user
+            )
 
+            return redirect('calendario')
+
+    return render(request, 'calendario/calendario.html', {'agendamentos': agendamentos, 'form': form, 'horarios_disponiveis': horarios_disponiveis})
+
+@login_required
+def apagar_agendamento(request, agendamento_id):
+    agendamento = get_object_or_404(Agendamento, id=agendamento_id, usuario=request.user)
+    agendamento.delete()
+    return redirect('calendario')

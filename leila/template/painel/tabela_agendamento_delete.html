@@ -1,0 +1,15 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Excluir Agendamento{% endblock %}
+{% block strong %}Excluir Agendamento{% endblock %}
+
+{% block section %}
+    <div class="card-body">
+        <p>Você tem certeza de que deseja excluir o agendamento de "{{ agendamento.usuario.username }}" para o serviço "{{ agendamento.servico.nome }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim, excluir</button>
+            <a href="{% url 'tabela_agendamentos' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

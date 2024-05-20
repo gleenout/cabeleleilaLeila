@@ -1,0 +1,94 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+                data-mdb-collapse-init
+                class="navbar-toggler"
+                type="button"
+                data-mdb-target="#navbarCenteredExample"
+                aria-controls="navbarCenteredExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}">
+            Cabeleleila Leila
+        </a>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarCenteredExample">
+            <!-- Left links -->
+            <ul class="navbar-nav mb-2 mb-lg-0 ">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'produtos' %}">Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'servicos' %}">Serviços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'calendario' %}">Calendário</a>
+                </li>
+            </ul>
+            <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+        {% if request.user.is_authenticated %}
+            <div class="dropdown">
+                <a
+                        data-mdb-dropdown-init
+                        class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                        href="#"
+                        id="navbarDropdownMenuAvatar"
+                        role="button"
+                        aria-expanded="false"
+                >
+                    {% if cliente.imagem_perfil %}
+                        <img
+                                src="{{ cliente.imagem_perfil.url }}"
+                                class="rounded-circle"
+                                height="25"
+                                alt="Imagem de perfil"
+                                loading="lazy"
+                        />
+                    {% else %}
+                        <img
+                                src="{% static 'imagens/padrao.jpg' %}"
+                                class="rounded-circle"
+                                height="25"
+                                alt="Imagem de perfil padrão"
+                                loading="lazy"
+                        />
+                    {% endif %}
+                </a>
+                <ul
+                        class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="navbarDropdownMenuAvatar"
+                >
+                    <li>
+                        <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
+                    </li>
+                    {% if request.user.is_staff %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'painel' %}">Painel</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button class="dropdown-item" href="{% url 'logout' %}">Sair</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+        {% endif %}
+    </div>
+    <!-- Container wrapper -->
+</nav>

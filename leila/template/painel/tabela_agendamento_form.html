@@ -1,0 +1,32 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}{% if form.instance.pk %}Editar Agendamento{% else %}Criar Agendamento{% endif %}{% endblock %}
+{% block strong %}
+    {% if form.instance.pk %}Editar Agendamento{% else %}Criar Agendamento{% endif %}
+{% endblock %}
+
+{% block section %}
+    <div class="container mt-4">
+        <h2 class="mb-4">Novo Agendamento</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.servico.label_tag }}
+                {{ form.servico }}
+            </div>
+            <div class="mb-3">
+                {{ form.data.label_tag }}
+                {{ form.data }}
+            </div>
+            <div class="mb-3">
+                {{ form.horario.label_tag }}
+                {{ form.horario }}
+            </div>
+            <div class="mb-3">
+                {{ form.usuario.label_tag }}
+                {{ form.usuario }}
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+{% endblock %}

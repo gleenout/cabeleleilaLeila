@@ -1,0 +1,28 @@
+{% extends 'painel/dm_painel.html' %}
+{% load static %}
+{% block title %}Horários{% endblock %}
+{% block strong %}Horários Disponíveis{% endblock %}
+
+{% block iconeadd %}
+    <a href="{% url 'criar_produto' %}" class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark">
+        <i class="bi bi-plus-circle"></i>
+        <span>Adicionar</span>
+    </a>
+{% endblock %}
+
+{% block section %}
+    <h1>Gerenciar Horários Disponíveis</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar Horário</button>
+    </form>
+
+    <h2>Horários Disponíveis</h2>
+    <ul>
+        {% for horario in horarios %}
+            <li>{{ horario }} ({{ horario.duracao }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
