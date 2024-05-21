@@ -31,9 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'servicos' %}">Serviços</a>
                 </li>
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'calendario' %}">Calendário</a>
                 </li>
+                {% endif %}
             </ul>
             <!-- Left links -->
         </div>
